@@ -16,7 +16,7 @@ Self-hosted AI assistant inspired by J.A.R.V.I.S. Runs 24/7 on a MacBook with Op
 - **Hardware:** MacBook Pro (chip / macOS version: TBD)
 - **Agent framework:** OpenClaw
 - **AI model:** Gemini API (free tier) — can be swapped later
-- **Messaging:** Telegram
+- **Messaging:** Discord
 
 ## Progress log
 | Date | What I did |
