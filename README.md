@@ -2,7 +2,7 @@
 
 Self-hosted AI assistant inspired by J.A.R.V.I.S. Runs 24/7 on a MacBook with OpenClaw to manage email, reminders, and messages. Every step documented.
 
-> Status: 🚧 In progress. Started October 28, 2026.
+> Status: 🚧 In progress. 
 
 ## Goals
 - [ ] Install OpenClaw and chat with it locally
