@@ -41,3 +41,42 @@ Every error I hit, and how I fixed it.
 ## Harmless messages I ignored (for now)
 - "vector recall degraded": semantic memory needs an embeddings provider
 - "SQLite reclamation Worker failed": cleanup noise on one-shot commands
+---
+
+## Reminder fired but was never delivered
+- Symptom: reminder only appeared after I messaged the bot
+- Log: "delivery failed (required): Unknown Channel"
+- Cause: the job used a channel: target with my user ID. DMs need user:<id>.
+- Fix: schedule with --announce --channel discord --to "user:<id>" and tell
+  the agent to always use that target.
+
+---
+
+## Command policy defaulted to full access
+- Cause: OpenClaw default is security=full, ask=off
+- Fix: tools.exec.mode = "ask", plus stored host approvals set to
+  allowlist / on-miss / deny. Verify with `openclaw approvals get`.
+
+---
+
+## File listing ran without approval
+- Cause: file tools are not covered by command approvals
+- Fix: tools.fs.workspaceOnly = true and chmod 700 ~/.openclaw
+
+---
+
+## 429 quota errors with very little usage
+- Evidence: about 40 model calls in a day, roughly 4 to 5 per chat message
+- Cause: agents make several long-prompt calls per message, and free tiers are small
+- The fallback model was on the same Google project, and the log showed it
+  was never used (zero calls to it)
+- Plan: add a second provider (Groq) with its own quota
+
+---
+
+## Groq plugin refused to install
+- Error: requires plugin API >=2026.10.8, runtime exposes 2026.10.4
+- Cause: OpenClaw version too old for the plugin
+- Fix: back up ~/.openclaw, then run `openclaw update`, then
+  `openclaw doctor` (without --fix first), and recheck guardrails
+- Status: in progress
