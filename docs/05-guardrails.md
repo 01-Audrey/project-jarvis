@@ -32,3 +32,22 @@ Channel". Test with an isolated cron job that announces to the DM.
 - Make the Discord bot private and allowlist only my user ID
 - Review other tools (browser, file transfer) with tool policy
 - Add a second provider as a quota fallback
+## Hardening after the update
+`openclaw doctor` flagged more issues after updating to 2026.10.9.
+
+Applied with `openclaw config patch` (dry-run first):
+- Discord groupPolicy = "allowlist" (it was "open", so any channel could
+  trigger the bot)
+- commands.ownerAllowFrom written as `discord:user:<id>` so heartbeats can
+  route to my DM
+- Disabled browser system-profile cookie import
+- Disabled legacy browser relay authentication
+
+Verified after the update: command approvals, file lock, and denied media
+tools all survived.
+
+## Still to do
+- Move the gateway token out of plaintext openclaw.json (`openclaw secrets configure`)
+- Make the Discord bot private and allowlist only my user ID
+- Review remaining tools (browser, file transfer) with tool policy
+- Delete backup copies that contain tokens once everything is stable

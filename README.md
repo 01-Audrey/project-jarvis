@@ -37,12 +37,14 @@ Self-hosted AI assistant inspired by J.A.R.V.I.S. Runs 24/7 on a MacBook with Op
 |------|-----------|
 | 2026-10-28 | Created repo, installed OpenClaw, connected Gemini and Discord, fixed sleep |
 | 2026-10-29 | Reminders working, tightened command and file permissions, investigated quota limits |
+| 2026-10-30 | Upgraded Node and OpenClaw, hardened Discord and browser settings, started adding Groq as a second provider |
 
 ## Lessons learned
 - An agent makes several model calls per message, so free API tiers run out fast
 - A second model from the same provider does not protect against a provider-wide limit
 - Agent defaults are permissive; lock down command execution and file access early
 - Check which provider a prompt is for before pasting an API key
+- Version requirements move: a plugin needed a newer OpenClaw, which needed a newer Node. Back up and preview before updating
 - Treat any key that appears in a log or chat as exposed and rotate it
 
 ## Security notes

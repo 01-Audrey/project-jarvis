@@ -80,3 +80,35 @@ Every error I hit, and how I fixed it.
 - Fix: back up ~/.openclaw, then run `openclaw update`, then
   `openclaw doctor` (without --fix first), and recheck guardrails
 - Status: in progress
+---
+
+## OpenClaw update failed: Node too old
+- Error: "this OpenClaw release requires Node >=24.22.1 <25 || >=26.12.1",
+  detected 24.22.0
+- Cause: the new release raised its minimum Node version by one patch
+- Fix: install the current Node 24 LTS .pkg from nodejs.org (admin password
+  needed since the agent user is a standard user), open a fresh terminal,
+  confirm `node --version`, then rerun `openclaw update`
+- Before updating: back up ~/.openclaw (it contains tokens, keep it out of
+  the repo) and preview with `openclaw update --dry-run`
+- Result: updated 2026.10.4 -> 2026.10.9. Gateway was down for about 8
+  minutes during the update, so schedule it. Guardrails survived.
+
+---
+
+## Groq plugin would not install on the old version
+- Error: requires plugin API >=2026.10.8, runtime exposes 2026.10.4
+- Fix: update OpenClaw (see above). The update installed the Groq plugin
+  automatically.
+
+---
+
+## Groq: "Model discovery authentication was rejected"
+- Symptom: `openclaw models list --refresh --provider groq` shows a cached
+  model table plus an auth rejection warning
+- Note: "Auth: yes" in that table only means a key is stored locally, not
+  that Groq accepts it
+- Debug plan: print only the key prefix and length, then test the key
+  against the provider with curl and read the HTTP status (200 = valid,
+  401 = rejected)
+- Status: in progress
